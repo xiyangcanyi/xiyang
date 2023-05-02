@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.news.mapper.SysAnnouncementSendMapper">
+    
+    <resultMap type="SysAnnouncementSend" id="SysAnnouncementSendResult">
+        <result property="id"    column="id"    />
+        <result property="anntId"    column="annt_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="readFlag"    column="read_flag"    />
+        <result property="readTime"    column="read_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="starFlag"    column="star_flag"    />
+    </resultMap>
+
+    <sql id="selectSysAnnouncementSendVo">
+        select id, annt_id, user_id, read_flag, read_time, create_by, create_time, update_by, update_time, star_flag from sys_announcement_send
+    </sql>
+
+    <select id="selectSysAnnouncementSendList" parameterType="SysAnnouncementSend" resultMap="SysAnnouncementSendResult">
+        <include refid="selectSysAnnouncementSendVo"/>
+        <where>  
+            <if test="anntId != null  and anntId != ''"> and annt_id = #{anntId}</if>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="readFlag != null  and readFlag != ''"> and read_flag = #{readFlag}</if>
+            <if test="readTime != null "> and read_time = #{readTime}</if>
+            <if test="starFlag != null  and starFlag != ''"> and star_flag = #{starFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAnnouncementSendById" parameterType="Integer" resultMap="SysAnnouncementSendResult">
+        <include refid="selectSysAnnouncementSendVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysAnnouncementSend" parameterType="SysAnnouncementSend" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_announcement_send
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="anntId != null">annt_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="readFlag != null">read_flag,</if>
+            <if test="readTime != null">read_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="starFlag != null">star_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="anntId != null">#{anntId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="readFlag != null">#{readFlag},</if>
+            <if test="readTime != null">#{readTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="starFlag != null">#{starFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAnnouncementSend" parameterType="SysAnnouncementSend">
+        update sys_announcement_send
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="anntId != null">annt_id = #{anntId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="readFlag != null">read_flag = #{readFlag},</if>
+            <if test="readTime != null">read_time = #{readTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="starFlag != null">star_flag = #{starFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysAnnouncementSendById" parameterType="Integer">
+        delete from sys_announcement_send where id = #{id}
+    </delete>
+
+    <delete id="deleteSysAnnouncementSendByIds" parameterType="String">
+        delete from sys_announcement_send where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

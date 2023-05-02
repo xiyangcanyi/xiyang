@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.news.mapper.SysAnnouncementMapper">
+    
+    <resultMap type="SysAnnouncement" id="SysAnnouncementResult">
+        <result property="id"    column="id"    />
+        <result property="titile"    column="titile"    />
+        <result property="msgContent"    column="msg_content"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="sender"    column="sender"    />
+        <result property="priority"    column="priority"    />
+        <result property="msgCategory"    column="msg_category"    />
+        <result property="msgType"    column="msg_type"    />
+        <result property="sendStatus"    column="send_status"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userIds"    column="user_ids"    />
+        <result property="msgAbstract"    column="msg_abstract"    />
+    </resultMap>
+
+    <sql id="selectSysAnnouncementVo">
+        select id, titile, msg_content, start_time, end_time, sender, priority, msg_category, msg_type, send_status, send_time, create_by, create_time, update_by, update_time, user_ids, msg_abstract from sys_announcement
+    </sql>
+
+    <select id="selectSysAnnouncementList" parameterType="SysAnnouncement" resultMap="SysAnnouncementResult">
+        <include refid="selectSysAnnouncementVo"/>
+        <where>  
+            <if test="titile != null  and titile != ''"> and titile = #{titile}</if>
+            <if test="msgContent != null  and msgContent != ''"> and msg_content = #{msgContent}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="sender != null  and sender != ''"> and sender = #{sender}</if>
+            <if test="priority != null  and priority != ''"> and priority = #{priority}</if>
+            <if test="msgCategory != null  and msgCategory != ''"> and msg_category = #{msgCategory}</if>
+            <if test="msgType != null  and msgType != ''"> and msg_type = #{msgType}</if>
+            <if test="sendStatus != null  and sendStatus != ''"> and send_status = #{sendStatus}</if>
+            <if test="sendTime != null "> and send_time = #{sendTime}</if>
+            <if test="userIds != null  and userIds != ''"> and user_ids = #{userIds}</if>
+            <if test="msgAbstract != null  and msgAbstract != ''"> and msg_abstract = #{msgAbstract}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAnnouncementById" parameterType="Integer" resultMap="SysAnnouncementResult">
+        <include refid="selectSysAnnouncementVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysAnnouncement" parameterType="SysAnnouncement" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_announcement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="titile != null">titile,</if>
+            <if test="msgContent != null">msg_content,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="sender != null">sender,</if>
+            <if test="priority != null">priority,</if>
+            <if test="msgCategory != null">msg_category,</if>
+            <if test="msgType != null">msg_type,</if>
+            <if test="sendStatus != null">send_status,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userIds != null">user_ids,</if>
+            <if test="msgAbstract != null">msg_abstract,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="titile != null">#{titile},</if>
+            <if test="msgContent != null">#{msgContent},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="sender != null">#{sender},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="msgCategory != null">#{msgCategory},</if>
+            <if test="msgType != null">#{msgType},</if>
+            <if test="sendStatus != null">#{sendStatus},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="userIds != null">#{userIds},</if>
+            <if test="msgAbstract != null">#{msgAbstract},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAnnouncement" parameterType="SysAnnouncement">
+        update sys_announcement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="titile != null">titile = #{titile},</if>
+            <if test="msgContent != null">msg_content = #{msgContent},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="sender != null">sender = #{sender},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="msgCategory != null">msg_category = #{msgCategory},</if>
+            <if test="msgType != null">msg_type = #{msgType},</if>
+            <if test="sendStatus != null">send_status = #{sendStatus},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="userIds != null">user_ids = #{userIds},</if>
+            <if test="msgAbstract != null">msg_abstract = #{msgAbstract},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysAnnouncementById" parameterType="Integer">
+        delete from sys_announcement where id = #{id}
+    </delete>
+
+    <delete id="deleteSysAnnouncementByIds" parameterType="String">
+        delete from sys_announcement where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
